@@ -21,7 +21,7 @@
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
-\ProvidesClass{awesome-cv-updated}[Awesome Curriculum Vitae Class]
+\ProvidesClass{awesome-cv-v2}[2017/02/05 v1.6.1 Awesome Curriculum Vitae Class]
 \NeedsTeXFormat{LaTeX2e}
 
 
@@ -180,10 +180,9 @@
   BoldItalicFont=*-MediumItalic,
 ]{Roboto}
 
-% Use source sans pro for all fonts for readability
 \newcommand*{\footerfont}{\sourcesanspro}
 \newcommand*{\bodyfont}{\sourcesanspro}
-\newcommand*{\bodyfontlight}{\sourcesanspro}
+\newcommand*{\bodyfontlight}{\sourcesansprolight}
 
 %-------------------------------------------------------------------------------
 %                Configuration for styles
@@ -203,9 +202,9 @@
 
 % For elements of entry
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{black} #1}}%10
-\newcommand*{\entrypositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\scshape\color{black} #1}} %8
+\newcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{black} #1}} %8
 \newcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\slshape\color{black} #1}} %8
-\newcommand*{\entrylocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\slshape\color{black} #1}} %9
+\newcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{black} #1}} %9
 \newcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{black} #1}} %9
 
 % For elements of subentry
@@ -216,10 +215,10 @@
 \newcommand*{\subdescriptionstyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\upshape\color{black} #1}}
 
 % For elements of honor
-\newcommand*{\honortitlestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\upshape\color{black} #1}}
+\newcommand*{\honortitlestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{black} #1}}
 \newcommand*{\honorpositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\bfseries\color{black} #1}}
 \newcommand*{\honordatestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{black} #1}}
-% \newcommand*{\honorlocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{black} #1}}
+\newcommand*{\honorlocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{black} #1}}
 
 % For elements of skill
 \newcommand*{\skilltypestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{black} #1}}
@@ -287,10 +286,6 @@
 % Usage: \homepage{<url>}
 \newcommand*{\homepage}[1]{\def\@homepage{#1}}
 
-% Defines writer's linked-in (optional)
-% Usage: \linkedin{<linked-in-nick>}
-\newcommand*{\linkedin}[1]{\def\@linkedin{#1}}
-
 % Defines writer's github (optional)
 % Usage: \github{<github-nick>}
 \newcommand*{\github}[1]{\def\@github{#1}}
@@ -304,6 +299,10 @@
 %   e.g.https://stackoverflow.com/users/123456/sam-smith
 %       would be \stackoverflow{123456}{sam-smith}
 \newcommand*{\stackoverflow}[2]{\def\@stackoverflowid{#1}\def\@stackoverflowname{#2}}
+
+% Defines writer's linked-in (optional)
+% Usage: \linkedin{<linked-in-nick>}
+\newcommand*{\linkedin}[1]{\def\@linkedin{#1}}
 
 % Defines writer's twitter (optional)
 % Usage: \twitter{<twitter handle>}
@@ -320,6 +319,10 @@
 % Defines writer's xing (optional)
 % Usage: \xing{<xing name>}
 \newcommand*{\xing}[1]{\def\@xing{#1}}
+
+% Defines writer's orcid (optional)
+% Usage: \orcid{<orcid name>}
+\newcommand*{\orcid}[1]{\def\@orcid{#1}}
 
 % Defines writer's medium profile (optional)
 % Usage: \medium{<medium account>}
@@ -339,10 +342,6 @@
     \def\@googlescholarname{#2}%
   }%
 }
-
-% Defines writer's orcid (optional)
-% Usage: \orcid{<orcid name>}
-\newcommand*{\orcid}[1]{\def\@orcid{#1}}
 
 % Defines writer's extra informations (optional)
 % Usage: \extrainfo{<extra informations>}
@@ -530,23 +529,11 @@
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \href{https://www.xing.com/profile/\@xing}{\faXingSquare\acvHeaderIconSep\@xing}
         }%
-      \ifthenelse{\isundefined{\@medium}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://medium.com/@\@medium}{\faMedium\acvHeaderIconSep\@medium}%
-        }%
-      \ifthenelse{\isundefined{\@googlescholarid}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://scholar.google.com/citations?user=\@googlescholarid}{\faGraduationCap\acvHeaderIconSep\@googlescholarname}%
-        }%
       \ifthenelse{\isundefined{\@orcid}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://orcid.org/\@orcid}{\aiOrcid\acvHeaderIconSep ORCID iD}%
+          \href{https://orcid.org/\@orcid}{\aiOrcid\acvHeaderIconSep\@orcid}
         }%
       \ifthenelse{\isundefined{\@extrainfo}}%
         {}%
@@ -757,15 +744,15 @@
 \RequirePackage[ % BibLaTeX
 	sorting=ydnt, % Sorts entries by year (descending order), name, title
 	style=verbose,
-	% doi=false,
-	% isbn=true,
-	% url=false,
-	% eprint=false,
-	% backref = false, % include back references in bibliography
+	doi=false,
+	isbn=true,
+	url=false,
+	eprint=false,
+	backref = false, % include back references in bibliography
 	minnames=3,
-  maxnames=5,
+  maxnames=3,
 	hyperref=true,
-	% block=none,
+	block=none,
 	backend=biber % {Options: bibtex, biber}
 	]{biblatex}
 	
@@ -783,8 +770,6 @@
 \DeclareFieldFormat[misc]{title}{#1\par}
 \DeclareFieldFormat[report]{title}{#1\par}
 \DeclareFieldFormat[incollection]{title}{#1\par}
-\DeclareFieldFormat[patent]{title}{#1\par}
-\DeclareFieldFormat[thesis]{title}{#1\par}
 
 \DeclareBibliographyDriver{article}{%
   \entrytitlestyle{\printfield{title}}%
@@ -793,15 +778,14 @@
   \par%
   \newblock%
   \descriptionstyle{%
+    % \usebibmacro{journal+issuetitle}%
     \usebibmacro{journal}%
-    \setunit{\addperiod\space}%
-    \printfield{year}%
     \setunit{\space}%
-    \printfield{month}%
-    % \printfield{pages}%
-    % \newunit%
-    % \printlist{publisher}%
-    % \setunit*{\addcomma\space}%
+    \printfield{pages}%
+    \newunit%
+    \printlist{publisher}%
+    \setunit*{\addcomma\space}%
+    \printfield{year}%
     \newunit%
   }
   \par\vspace{0\baselineskip}
@@ -814,6 +798,7 @@
   \par%
   \newblock%
   \descriptionstyle{%
+    \fontsize{8pt}{1em}\bodyfontlight\color{black}%
     \printfield{booktitle}%
     \setunit{\addcomma\space}%
     \printfield{year}%
@@ -823,6 +808,7 @@
   }
   \par\vspace{0\baselineskip}
 }
+
 \DeclareBibliographyDriver{incollection}{%
   \entrytitlestyle{\printfield{title}}%
   \newblock%
@@ -830,6 +816,7 @@
   \par%
   \newblock%
   \descriptionstyle{%
+    \fontsize{8pt}{1em}\bodyfontlight\color{black}%
     \printfield{booktitle}%
     \setunit{\addcomma\space}%
     \printfield{year}%
@@ -839,6 +826,7 @@
   }
   \par\vspace{0\baselineskip}
 }
+
 \DeclareBibliographyDriver{misc}{%
   \entrytitlestyle{\printfield{title}}%
   \newblock%
@@ -846,6 +834,7 @@
   \par%
   \newblock%
   \descriptionstyle{%
+    \fontsize{8pt}{1em}\bodyfontlight\color{black}%
     \printfield{booktitle}%
     \setunit*{\addcomma\space}%
     \printfield{note}%
@@ -857,6 +846,7 @@
   }
   \par\vspace{0\baselineskip}
 }
+
 \DeclareBibliographyDriver{report}{%
   \entrytitlestyle{\printfield{title}}%
   \newblock%
@@ -864,6 +854,7 @@
   \par%
   \newblock%
   \descriptionstyle{%
+    \fontsize{8pt}{1em}\bodyfontlight\color{black}%
     \printfield{type}%
     \setunit{\space}%
     \printfield{number}%
@@ -874,49 +865,17 @@
   \par\vspace{0\baselineskip}
 }
 
-\DeclareBibliographyDriver{patent}{%
-  \entrytitlestyle{\printfield{title}}%
-  \newblock%
-  \entrypositionstyle{\printnames{author}}%
-  \par%
-  \newblock%
-  \descriptionstyle{%
-    \printnames{holder}%
-    \setunit{\addcomma\space}%
-    \printfield{number}%
-    \setunit{\addcomma\space}%
-    \usebibmacro{date}%
-    \newunit%
-  }
-  \par\vspace{0\baselineskip}
-}
-
-\DeclareBibliographyDriver{thesis}{%
-  \entrytitlestyle{\printfield{title}}%
-  \newblock%
-  \entrypositionstyle{\printnames{author}}%
-  \par%
-  \newblock%
-  \descriptionstyle{%
-    \printlist{institution}%
-    \setunit{\addcomma\space}%
-    \printfield{type}%
-    \setunit{\addcomma\space}%
-    \printfield{year}%
-    \newunit%
-  }
-  \par\vspace{0\baselineskip}
-}
-
 % % New syntax for flexible backend (BibLaTeX > v3.3)
  \DeclareNameFormat{author}{%
-   \fontsize{8pt}{1em}\bodyfontlight%
+   \fontsize{9pt}{1em}\bodyfont%
    \renewcommand*{\multinamedelim}{\addcomma\addspace}%
    \nameparts{#1}%
    \ifthenelse{\value{listcount}=1}
-     {\namepartfamily\space\ifblank{\namepartgiveni}{}{\namepartgiveni}}%
-     {\namepartfamily\space\ifblank{\namepartgiveni}{}{\namepartgiveni}}%
+     {\ifblank{\namepartgiveni}{}{\namepartgiveni\space}%
+     \namepartfamily}%
+     {\ifblank{\namepartgiveni}{}{\namepartgiveni\space}%
+     \namepartfamily}%
    \ifthenelse{\value{listcount}<\value{liststop}}
-    {\addcomma\space}
-    {\addcomma\space et al.}
+  {\addcomma\space}
+   {}
 }
