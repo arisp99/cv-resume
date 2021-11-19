@@ -1,29 +1,26 @@
 %% Start of file `awesome-cv.cls'.
 % Awesome CV Class File
 %
-% This class has been downloaded from:
+% The original awesome-cv class has been downloaded from:
 % https://github.com/posquit0/Awesome-CV
 %
-% Author:
+% Original Author:
 % Claud D. Park <posquit0.bj@gmail.com>
 % http://www.posquit0.com
 %
-% Notes:
-% 1) This class file defines the structure and layout of the template file (cv.tex, resume.tex).
-% 2) It has been written in such a way that under most circumstances you
-% should not need to edit it.
+% Modifications:
+% The class has been modified by Aris Paschalidis <https://www.arispas.com/>.
+% Modifications include changing the color of fonts, adding additional FA icons,
+% and adding the ability to add a bibliography.
 %
 % Class license:
 % LPPL v1.3c (http://www.latex-project.org/lppl)
-%
-
 
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
 \ProvidesClass{awesome-cv}[Awesome Curriculum Vitae Class]
 \NeedsTeXFormat{LaTeX2e}
-
 
 %-------------------------------------------------------------------------------
 %                Class options
@@ -41,7 +38,6 @@
 }
 \ProcessOptions\relax
 \LoadClass{article}
-
 
 %-------------------------------------------------------------------------------
 %                3rd party packages
@@ -98,7 +94,6 @@
 \newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
 \fontdir
 
-
 %-------------------------------------------------------------------------------
 %                Configuration for layout
 %-------------------------------------------------------------------------------
@@ -115,7 +110,6 @@
 \fancyhf{}
 % Enable if you want to make header or footer using fancyhdr
 \pagestyle{fancy}
-
 
 %-------------------------------------------------------------------------------
 %                Configuration for colors
@@ -156,7 +150,6 @@
 \def\@sectioncolor#1#2#3{%
   \ifbool{acvSectionColorHighlight}{{\color{awesome}#1#2#3}}{#1#2#3}%
 }
-
 
 %-------------------------------------------------------------------------------
 %                Configuration for fonts
@@ -234,7 +227,6 @@
 \newcommand*{\lettertextstyle}{\fontsize{10pt}{1.4em}\bodyfontlight\upshape\color{black}}
 \newcommand*{\letternamestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{black} #1}}
 \newcommand*{\letterenclosurestyle}[1]{{\fontsize{10pt}{1em}\bodyfontlight\slshape\color{black} #1}}
-
 
 %-------------------------------------------------------------------------------
 %                Commands for personal information
@@ -385,7 +377,6 @@
   \def\@letterenclosure{#2}
 }
 
-
 %-------------------------------------------------------------------------------
 %                Commands for extra
 %-------------------------------------------------------------------------------
@@ -404,7 +395,6 @@
 \newcommand{\acvSectionTopSkip}{-2mm} %3 mm
 \newcommand{\acvSectionContentTopSkip}{1mm} %2.5 mm
 
-
 %-------------------------------------------------------------------------------
 %                Commands for utilities
 %-------------------------------------------------------------------------------
@@ -418,7 +408,6 @@
 
 % Use to execute conditional statements by checking empty string
 \newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
-
 
 %-------------------------------------------------------------------------------
 %                Commands for elements of CV structure
@@ -546,7 +535,7 @@
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://orcid.org/\@orcid}{\aiOrcid\acvHeaderIconSep ORCID iD}%
+          \href{https://orcid.org/\@orcid}{\aiOrcid\acvHeaderIconSep\@orcid}%
         }%
       \ifthenelse{\isundefined{\@extrainfo}}%
         {}%
@@ -697,7 +686,6 @@
   \end{justify}
   \vspace{-4.0mm}
 }
-
 
 %-------------------------------------------------------------------------------
 %                Commands for elements of Cover Letter
