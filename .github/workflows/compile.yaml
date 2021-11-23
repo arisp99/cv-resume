@@ -1,6 +1,16 @@
 name: Build LaTeX document
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'resume.tex'
+      - 'resume/**'
+      - 'awesome-cv.cls'
+  pull_request:
+    paths:
+      - 'resume.tex'
+      - 'resume/**'
+      - 'awesome-cv.cls'
 
 jobs:
   build-latex:
