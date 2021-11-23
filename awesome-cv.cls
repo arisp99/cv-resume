@@ -783,9 +783,9 @@
   \descriptionstyle{%
     \usebibmacro{journal}%
     \setunit{\addperiod\space}%
-    \printfield{year}%
-    \setunit{\space}%
     \printfield{month}%
+    \setunit{\space}%
+    \printfield{year}%
     % \printfield{pages}%
     % \newunit%
     % \printlist{publisher}%
