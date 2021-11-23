@@ -1,6 +1,6 @@
-# resume
+# résumé
 
-This repository contains the LaTeX source code for my resume. 
+This repository contains the LaTeX source code for my résumé. 
 
 ### Requirements
 
