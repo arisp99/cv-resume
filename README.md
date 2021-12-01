@@ -1,6 +1,7 @@
-# résumé
+# Curriculum Vitae & Résumé
 
-This repository contains the LaTeX source code for my résumé. 
+This repository contains the LaTeX source code for my curriculum vitae and
+résumé.
 
 ### Requirements
 
@@ -10,15 +11,17 @@ systems (Windows, Mac, \*nix) are available but TeX Live is recommended.
 
 ### Usage
 
-At a command prompt, run
+There are two main `.tex` files that can be compiled. To do so, run the
+following at the command prompt. Note that we use the `LuaTeX` TeX engine.
 
 ```bash
+$ lualatex cv.tex
 $ lualatex resume.tex
 ```
 
-This should result in the creation of `resume.pdf`.
+This will result in the creation of `cv.pdf` and `resume.pdf`.
 
-## Credit
+## Credits
 
 [**Awesome CV**](https://github.com/posquit0/Awesome-CV) is a LaTeX template
 for a **CV(Curriculum Vitae)**, **Résumé** or **Cover Letter** inspired by
