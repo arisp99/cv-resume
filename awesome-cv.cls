@@ -743,7 +743,7 @@
 %-------------------------------------------------------------------------------
 %\RequirePackage[style=verbose, maxnames=99, sorting=ydnt]{biblatex}
 \RequirePackage[ % BibLaTeX
-	sorting=ydnt, % Sorts entries by year (descending order), name, title
+	sorting=ymdnt, % Sorts entries using custom sorting order defined below
 	style=verbose,
 	% doi=false,
 	% isbn=true,
@@ -898,7 +898,7 @@
   \par\vspace{0\baselineskip}
 }
 
-% % New syntax for flexible backend (BibLaTeX > v3.3)
+% New syntax for flexible backend (BibLaTeX > v3.3)
  \DeclareNameFormat{author}{%
    \fontsize{8pt}{1em}\bodyfontlight%
    \renewcommand*{\multinamedelim}{\addcomma\addspace}%
@@ -909,4 +909,40 @@
    \ifthenelse{\value{listcount}<\value{liststop}}
     {\addcomma\space}
     {\addcomma\space et al.}
+}
+
+% Add custom sorting. We sort by year (descending), month (descending), name,
+% title.
+\DeclareSortingTemplate{ymdnt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  % Don't sort by day!
+  % \sort[direction=descending]{
+  %   \field[padside=left,padwidth=2,padchar=0]{day}
+  %   \literal{99}
+  % }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sorttitle}
+  }
 }
