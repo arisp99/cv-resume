@@ -804,6 +804,8 @@
   \descriptionstyle{%
     \printfield{booktitle}%
     \setunit{\addcomma\space}%
+    \printfield{month}%
+    \setunit{\space}%
     \printfield{year}%
     \setunit{\addcomma\space}%
     \printlist{location}%
