@@ -836,10 +836,10 @@
   \par%
   \newblock%
   \descriptionstyle{%
-    \printfield{booktitle}%
-    \setunit*{\addcomma\space}%
     \printfield{note}%
-    \setunit*{\addcomma\space}%
+    \setunit{\addcomma\space}%
+    \printfield{month}%
+    \setunit{\space}%
     \printfield{year}%
     \setunit{\addcomma\space}%
     \printlist{location}%
