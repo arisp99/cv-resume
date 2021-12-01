@@ -1,13 +1,17 @@
-name: Build LaTeX document
+name: Build LaTeX documents
 
 on:
   push:
     paths:
+      - 'cv.tex'
+      - 'cv/**'
       - 'resume.tex'
       - 'resume/**'
       - 'awesome-cv.cls'
   pull_request:
     paths:
+      - 'cv.tex'
+      - 'cv/**'
       - 'resume.tex'
       - 'resume/**'
       - 'awesome-cv.cls'
@@ -22,21 +26,25 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: resume.tex
+          root_file: |
+            cv.tex
+            resume.tex
           latexmk_use_lualatex: true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: resume-pdf
-          path: resume.pdf
+          name: pdf-files
+          path: |
+            cv.pdf
+            resume.pdf
 
       - name: Commit changes
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git add resume.pdf
-          git commit -m "Update resume pdf" || echo "Resume pdf unchanged"
+          git add cv.pdf resume.pdf
+          git commit -m "Update pdf files" || echo "pdf files unchanged"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
