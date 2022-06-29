@@ -808,11 +808,12 @@
     \setunit{\space}%
     \printfield{year}%
     \setunit{\addcomma\space}%
-    \printlist{location}%
+    \printfield{location}%
     \newunit%
   }
   \par\vspace{0\baselineskip}
 }
+
 \DeclareBibliographyDriver{incollection}{%
   \entrytitlestyle{\printfield{title}}%
   \newblock%
@@ -824,11 +825,12 @@
     \setunit{\addcomma\space}%
     \printfield{year}%
     \setunit{\addcomma\space}%
-    \printlist{location}%
+    \printfield{location}%
     \newunit%
   }
   \par\vspace{0\baselineskip}
 }
+
 \DeclareBibliographyDriver{misc}{%
   \entrytitlestyle{\printfield{title}}%
   \newblock%
@@ -837,16 +839,19 @@
   \newblock%
   \descriptionstyle{%
     \printfield{note}%
+    \printfield{eventtitle}%
     \setunit{\addcomma\space}%
     \printfield{month}%
     \setunit{\space}%
     \printfield{year}%
     \setunit{\addcomma\space}%
-    \printlist{location}%
+    \printfield{location}%
+    \printfield{venue}%
     \newunit%
   }
   \par\vspace{0\baselineskip}
 }
+
 \DeclareBibliographyDriver{report}{%
   \entrytitlestyle{\printfield{title}}%
   \newblock%
@@ -898,17 +903,16 @@
   \par\vspace{0\baselineskip}
 }
 
-% New syntax for flexible backend (BibLaTeX > v3.3)
- \DeclareNameFormat{author}{%
-   \fontsize{8pt}{1em}\bodyfontlight%
-   \renewcommand*{\multinamedelim}{\addcomma\addspace}%
-   \nameparts{#1}%
-   \ifthenelse{\value{listcount}=1}
-     {\namepartfamily\space\ifblank{\namepartgiveni}{}{\namepartgiveni}}%
-     {\namepartfamily\space\ifblank{\namepartgiveni}{}{\namepartgiveni}}%
-   \ifthenelse{\value{listcount}<\value{liststop}}
-    {\addcomma\space}
-    {\addcomma\space et al.}
+\DeclareNameFormat{author}{%
+  \fontsize{8pt}{1em}\bodyfontlight%
+  \renewcommand*{\multinamedelim}{\addcomma\addspace}%
+  \nameparts{#1}%
+  \usebibmacro{name:family-given}
+    {\namepartfamily\nopunct}
+    {\namepartgiveni}
+    {\namepartprefix}
+    {\namepartsuffix}%
+  \usebibmacro{name:andothers}%
 }
 
 % Add custom sorting. We sort by year (descending), month (descending), name,
