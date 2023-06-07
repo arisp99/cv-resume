@@ -741,14 +741,15 @@
 \RequirePackage[ % BibLaTeX
 	sorting=ymdnt, % Sorts entries using custom sorting order defined below
 	style=verbose,
-	% doi=false,
+	doi=true,
 	% isbn=true,
 	% url=false,
 	% eprint=false,
 	% backref = false, % include back references in bibliography
 	minnames=3,
-  maxnames=5,
+  maxnames=99,
 	hyperref=true,
+  dateabbrev=false,
 	% block=none,
 	backend=biber % {Options: bibtex, biber}
 	]{biblatex}
@@ -769,6 +770,15 @@
 \DeclareFieldFormat[incollection]{title}{#1\par}
 \DeclareFieldFormat[patent]{title}{#1\par}
 \DeclareFieldFormat[thesis]{title}{#1\par}
+\DeclareFieldFormat[article,inproceedings]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article,inproceedings]{pages}{#1}
+\DeclareFieldFormat{doi}{%
+  doi\addcolon\space
+  \ifhyperref
+    {\lowercase{\href{https://doi.org/#1}{\nolinkurl{#1}}}}
+    {\lowercase{\nolinkurl{#1}}}}
+\renewcommand*{\bibpagespunct}{\addcolon}
+\DeclareDelimFormat{finalnamedelim}{\addcomma\space}
 
 \DeclareBibliographyDriver{article}{%
   \entrytitlestyle{\printfield{title}}%
@@ -778,17 +788,18 @@
   \newblock%
   \descriptionstyle{%
     \usebibmacro{journal}%
-    \setunit{\addperiod\space}%
-    \printfield{month}%
-    \setunit{\space}%
+    \newunitpunct%
     \printfield{year}%
-    % \printfield{pages}%
-    % \newunit%
-    % \printlist{publisher}%
-    % \setunit*{\addcomma\space}%
-    \newunit%
+    \setunit{\addsemicolon}%
+    \printfield{volume}%
+    \printfield{number}%
+    \setunit{\bibpagespunct}%
+    \printfield{pages}%
+    \setunit{\adddot\addspace}%
+    \printfield{doi}%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareBibliographyDriver{inproceedings}{%
@@ -799,15 +810,18 @@
   \newblock%
   \descriptionstyle{%
     \printfield{booktitle}%
-    \setunit{\addcomma\space}%
-    \printfield{month}%
-    \setunit{\space}%
+    \newunitpunct%
     \printfield{year}%
-    \setunit{\addcomma\space}%
-    \printfield{location}%
-    \newunit%
+    \setunit{\addsemicolon}%
+    \printfield{volume}%
+    \printfield{number}%
+    \setunit{\bibpagespunct}%
+    \printfield{pages}%
+    \setunit{\adddot\addspace}%
+    \printfield{doi}%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareBibliographyDriver{incollection}{%
@@ -822,9 +836,9 @@
     \printfield{year}%
     \setunit{\addcomma\space}%
     \printfield{location}%
-    \newunit%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareBibliographyDriver{misc}{%
@@ -836,16 +850,14 @@
   \descriptionstyle{%
     \printfield{note}%
     \printfield{eventtitle}%
-    \setunit{\addcomma\space}%
-    \printfield{month}%
-    \setunit{\space}%
-    \printfield{year}%
-    \setunit{\addcomma\space}%
+    \entrysetpunct%
+    \usebibmacro{date}%
+    \entrysetpunct%
     \printfield{location}%
     \printfield{venue}%
-    \newunit%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareBibliographyDriver{report}{%
@@ -860,9 +872,9 @@
     \printfield{number}%
     \setunit{\addcomma\space}%
     \printfield{year}%
-    \newunit%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareBibliographyDriver{patent}{%
@@ -877,9 +889,9 @@
     \printfield{number}%
     \setunit{\addcomma\space}%
     \usebibmacro{date}%
-    \newunit%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareBibliographyDriver{thesis}{%
@@ -894,9 +906,9 @@
     \printfield{type}%
     \setunit{\addcomma\space}%
     \printfield{year}%
-    \newunit%
+    \finentrypunct%
   }
-  \par\vspace{0\baselineskip}
+  \par\vspace{0.1\baselineskip}
 }
 
 \DeclareNameFormat{author}{%
@@ -914,17 +926,9 @@
 % Add custom sorting. We sort by year (descending), month (descending), name,
 % title.
 \DeclareSortingTemplate{ymdnt}{
-  \sort{
-    \field{presort}
-  }
-  \sort[final]{
-    \field{sortkey}
-  }
-  \sort[direction=descending]{
-    \field{sortyear}
-    \field{year}
-    \literal{9999}
-  }
+  \sort{\field{presort}}
+  \sort[final]{\field{sortkey}}
+  \sort[direction=descending]{\field{sortyear}\field{year}\literal{9999}}
   \sort[direction=descending]{
     \field[padside=left,padwidth=2,padchar=0]{month}
     \literal{99}
@@ -942,7 +946,5 @@
     \field{sorttitle}
     \field{title}
   }
-  \sort{
-    \field{sorttitle}
-  }
+  \sort{\field{sorttitle}}
 }
