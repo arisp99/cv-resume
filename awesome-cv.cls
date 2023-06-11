@@ -850,9 +850,9 @@
   \descriptionstyle{%
     \printfield{note}%
     \printfield{eventtitle}%
-    \entrysetpunct%
+    \setunit{\addsemicolon\space}%
     \usebibmacro{date}%
-    \entrysetpunct%
+    \setunit{\addsemicolon\space}%
     \printfield{location}%
     \printfield{venue}%
     \finentrypunct%
