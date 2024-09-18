@@ -1,6 +1,7 @@
 name: Build LaTeX documents
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - "cv.tex"
