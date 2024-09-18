@@ -3,28 +3,28 @@ name: Build LaTeX documents
 on:
   push:
     paths:
-      - 'cv.tex'
-      - 'cv/**'
-      - 'resume.tex'
-      - 'resume/**'
-      - 'awesome-cv.cls'
+      - "cv.tex"
+      - "cv/**"
+      - "resume.tex"
+      - "resume/**"
+      - "awesome-cv.cls"
   pull_request:
     paths:
-      - 'cv.tex'
-      - 'cv/**'
-      - 'resume.tex'
-      - 'resume/**'
-      - 'awesome-cv.cls'
+      - "cv.tex"
+      - "cv/**"
+      - "resume.tex"
+      - "resume/**"
+      - "awesome-cv.cls"
 
 jobs:
   build-latex:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: |
             cv.tex
@@ -32,7 +32,7 @@ jobs:
           latexmk_use_lualatex: true
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@4
         with:
           name: pdf-files
           path: |
