@@ -2,20 +2,20 @@ name: Build LaTeX documents
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "cv.tex"
-      - "cv/**"
-      - "resume.tex"
-      - "resume/**"
-      - "awesome-cv.cls"
-  pull_request:
-    paths:
-      - "cv.tex"
-      - "cv/**"
-      - "resume.tex"
-      - "resume/**"
-      - "awesome-cv.cls"
+  # push:
+  #   paths:
+  #     - "cv.tex"
+  #     - "cv/**"
+  #     - "resume.tex"
+  #     - "resume/**"
+  #     - "awesome-cv.cls"
+  # pull_request:
+  #   paths:
+  #     - "cv.tex"
+  #     - "cv/**"
+  #     - "resume.tex"
+  #     - "resume/**"
+  #     - "awesome-cv.cls"
 
 jobs:
   build-latex:
