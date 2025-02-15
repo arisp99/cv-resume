@@ -792,6 +792,7 @@
     {\lowercase{\nolinkurl{#1}}}}
 \renewcommand*{\bibpagespunct}{\addcolon}
 \DeclareDelimFormat{finalnamedelim}{\addcomma\space}
+\DeclareFieldFormat{pubstate}{\MakeCapital{#1}.}
 
 \DeclareBibliographyDriver{article}{%
   \entrytitlestyle{\printfield{title}}%
@@ -811,6 +812,7 @@
     \setunit{\adddot\addspace}%
     \printfield{doi}%
     \finentrypunct%
+    \printfield{pubstate}%
   }
   \par\vspace{0.1\baselineskip}
 }
