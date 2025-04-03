@@ -378,12 +378,12 @@
 \newcommand{\acvHeaderAfterAddressSkip}{-.5mm}
 \newcommand{\acvHeaderIconSep}{\space}
 \newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-\newcommand{\acvHeaderAfterSocialSkip}{5mm}
-\newcommand{\acvHeaderAfterQuoteSkip}{0mm}
+\newcommand{\acvHeaderAfterSocialSkip}{6mm}
+\newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{-2mm} %3 mm
-\newcommand{\acvSectionContentTopSkip}{1mm} %2.5 mm
+\newcommand{\acvSectionTopSkip}{0mm} %3 mm
+\newcommand{\acvSectionContentTopSkip}{2.5mm} %2.5 mm
 
 %-------------------------------------------------------------------------------
 %                Commands for utilities
@@ -596,10 +596,10 @@
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \ifempty{#2#3}
-      {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-      \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
+    \ifempty{#1#3}
+      {\entrypositionstyle{#2} & \entrydatestyle{#4} \\}
+      {\entrytitlestyle{#1} & \entrylocationstyle{#3} \\
+      \entrypositionstyle{#2} & \entrydatestyle{#4} \\}
     \ifstrempty{#5}
       {}
       {\multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}} \\}
