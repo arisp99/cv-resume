@@ -212,6 +212,19 @@
 %-------------------------------------------------------------------------------
 %                Commands for personal information
 %-------------------------------------------------------------------------------
+% Define a collection of header information
+\edef\header{}
+\newcommand*{\headeradd}[1]{
+    \ifnonprint{\ignorespaces\header}{%
+        \protected@edef\header{#1}%
+    }{%
+        \protected@edef\header{\header{} \acvHeaderSocialSep #1}%
+    }%
+}%
+\newcommand*{\headersocial}[3]{
+    \headeradd{\href{#2#3}{#1\acvHeaderIconSep#3}}
+}
+
 % % Define photo ID
 % % Usage: \photo[circle|rectangle,edge|noedge,left|right]{<path-to-image>}
 \newcommand{\photo}[2][circle,edge,left]{%
@@ -250,8 +263,7 @@
 
 % Defines writer's mobile (optional)
 % Usage: \mobile{<mobile number>}
-\newcommand*{\mobile}[1]
-{
+\newcommand*{\mobile}[1]{%
   \def\@mobile{#1}
   \def\@teluri{tel:\@mobile}
   % Strip unwanted characters
@@ -259,53 +271,50 @@
   \StrDel{\@teluri}{-}[\@teluri]%
   \StrDel{\@teluri}{(}[\@teluri]%
   \StrDel{\@teluri}{)}[\@teluri]%
+  \headeradd{\href{\@teluri}{\faMobile\acvHeaderIconSep\@mobile}}%
 }
 
 % Defines writer's email (optional)
 % Usage: \email{<email address>}
-\newcommand*{\email}[1]{\def\@email{#1}}
+\newcommand*{\email}[1]{\headersocial{\faEnvelope}{mailto:}{#1}}
 
 % Defines writer's homepage (optional)
 % Usage: \homepage{<url>}
-\newcommand*{\homepage}[1]{\def\@homepage{#1}}
+\newcommand*{\homepage}[1]{\headersocial{\faHome}{https://}{#1}}
 
 % Defines writer's linked-in (optional)
 % Usage: \linkedin{<linked-in-nick>}
-\newcommand*{\linkedin}[1]{\def\@linkedin{#1}}
+\newcommand*{\linkedin}[1]{\headersocial{\faLinkedinSquare}{https://www.linkedin.com/in/}{#1}}
 
 % Defines writer's github (optional)
 % Usage: \github{<github-nick>}
-\newcommand*{\github}[1]{\def\@github{#1}}
+\newcommand*{\github}[1]{\headersocial{\faGithub}{https://github.com/}{#1}}
 
 % Defines writer's gitlab (optional)
 % Usage: \gitlab{<gitlab-nick>}
-\newcommand*{\gitlab}[1]{\def\@gitlab{#1}}
+\newcommand*{\gitlab}[1]{\headersocial{\faGitlab}{https://gitlab.com/}{#1}}
 
 % Defines writer's stackoverflow profile (optional)
 % Usage: \stackoverflow{<so userid>}{<so username>}
 %   e.g.https://stackoverflow.com/users/123456/sam-smith
 %       would be \stackoverflow{123456}{sam-smith}
-\newcommand*{\stackoverflow}[2]{\def\@stackoverflowid{#1}\def\@stackoverflowname{#2}}
+\newcommand*{\stackoverflow}[2]{\headeradd{\href{https://stackoverflow.com/users/#1}{\faStackOverflow\acvHeaderIconSep#2}}}
 
 % Defines writer's twitter (optional)
 % Usage: \twitter{<twitter handle>}
-\newcommand*{\twitter}[1]{\def\@twitter{#1}}
+\newcommand*{\twitter}[1]{\headerSocial{\faTwitter}{https://twitter.com/}{#1}}
 
 % Defines writer's skype (optional)
 % Usage: \skype{<skype account>}
-\newcommand*{\skype}[1]{\def\@skype{#1}}
+\newcommand*{\skype}[1]{\headeradd{\faSkype\acvHeaderIconSep#1}}
 
 % Defines writer's reddit (optional)
 % Usage: \reddit{<reddit account>}
-\newcommand*{\reddit}[1]{\def\@reddit{#1}}
-
-% Defines writer's xing (optional)
-% Usage: \xing{<xing name>}
-\newcommand*{\xing}[1]{\def\@xing{#1}}
+\newcommand*{\reddit}[1]{\headersocial{\faReddit}{https://www.reddit.com/user/}{#1}}
 
 % Defines writer's medium profile (optional)
 % Usage: \medium{<medium account>}
-\newcommand*{\medium}[1]{\def\@medium{#1}}
+\newcommand*{\medium}[1]{\headersocial{\faMedium}{https://medium.com/@}{#1}}
 
 % Defines writer's google scholar profile (optional)
 % Usage: \googlescholar{<googlescholar userid>}{<googlescholar username>}
@@ -314,21 +323,21 @@
 % If 'googlescholar-name' is not provided than it defaults to
 % '\firstname \lastname'
 \newcommand*{\googlescholar}[2]{%
-  \def\@googlescholarid{#1}%
   \ifthenelse{\equal{#2}{}}{%
     \def\@googlescholarname{\@firstname~\@lastname}%
   }{%
     \def\@googlescholarname{#2}%
   }%
+  \headeradd{\href{https://scholar.google.com/citations?user=#1}{\faGraduationCap\acvHeaderIconSep\@googlescholarname}}%
 }
 
 % Defines writer's orcid (optional)
 % Usage: \orcid{<orcid name>}
-\newcommand*{\orcid}[1]{\def\@orcid{#1}}
+\newcommand*{\orcid}[1]{\headersocial{\aiOrcid}{https://orcid.org/}{#1}}
 
 % Defines writer's extra informations (optional)
 % Usage: \extrainfo{<extra informations>}
-\newcommand*{\extrainfo}[1]{\def\@extrainfo{#1}}
+\newcommand*{\extrainfo}[1]{\headeradd{#1}}
 
 % Defines writer's quote (optional)
 % Usage: \quote{<quote>}
@@ -399,6 +408,15 @@
 % Use to execute conditional statements by checking empty string
 \newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
 
+% Use to execute conditional statements by checking non-printing string
+\newcommand*{\ifnonprint}[3]{
+  \setbox0=\hbox{#1\unskip}\ifdim\wd0=0pt
+    #2
+  \else
+    #3
+  \fi
+}
+
 %-------------------------------------------------------------------------------
 %                Commands for elements of CV structure
 %-------------------------------------------------------------------------------
@@ -441,98 +459,7 @@
     \ifthenelse{\isundefined{\@position}}{}{\headerpositionstyle{\@position\\[\acvHeaderAfterPositionSkip]}}%
     \ifthenelse{\isundefined{\@address}}{}{\headeraddressstyle{\@address\\[\acvHeaderAfterAddressSkip]}}%
     \headersocialstyle{%
-      \newbool{isstart}%
-      \setbool{isstart}{true}%
-      \ifthenelse{\isundefined{\@mobile}}%
-        {}%
-        {%
-          \href{\@teluri}{\faMobile\acvHeaderIconSep\@mobile}%
-          \setbool{isstart}{false}%
-        }%
-      \ifthenelse{\isundefined{\@email}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}%
-        }%
-      \ifthenelse{\isundefined{\@homepage}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://\@homepage}{\faHome\acvHeaderIconSep\@homepage}%
-        }%
-      \ifthenelse{\isundefined{\@linkedin}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedinSquare\acvHeaderIconSep\@linkedin}%
-        }%
-      \ifthenelse{\isundefined{\@github}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://github.com/\@github}{\faGithub\acvHeaderIconSep\@github}%
-        }%
-      \ifthenelse{\isundefined{\@gitlab}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://gitlab.com/\@gitlab}{\faGitlab\acvHeaderIconSep\@gitlab}%
-        }%
-      \ifthenelse{\isundefined{\@stackoverflowid}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://stackoverflow.com/users/\@stackoverflowid}{\faStackOverflow\acvHeaderIconSep\@stackoverflowname}%
-        }%
-      \ifthenelse{\isundefined{\@twitter}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://twitter.com/\@twitter}{\faTwitter\acvHeaderIconSep\@twitter}%
-        }%
-      \ifthenelse{\isundefined{\@skype}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \faSkype\acvHeaderIconSep\@skype%
-        }%
-      \ifthenelse{\isundefined{\@reddit}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.reddit.com/user/\@reddit}{\faReddit\acvHeaderIconSep\@reddit}%
-        }%
-      \ifthenelse{\isundefined{\@xing}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.xing.com/profile/\@xing}{\faXingSquare\acvHeaderIconSep\@xing}
-        }%
-      \ifthenelse{\isundefined{\@medium}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://medium.com/@\@medium}{\faMedium\acvHeaderIconSep\@medium}%
-        }%
-      \ifthenelse{\isundefined{\@googlescholarid}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://scholar.google.com/citations?user=\@googlescholarid}{\faGraduationCap\acvHeaderIconSep\@googlescholarname}%
-        }%
-      \ifthenelse{\isundefined{\@orcid}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://orcid.org/\@orcid}{\aiOrcid\acvHeaderIconSep\@orcid}%
-        }%
-      \ifthenelse{\isundefined{\@extrainfo}}%
-        {}%
-        {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \@extrainfo%
-        }%
+      \header{}
     } \\[\acvHeaderAfterSocialSkip]%
     \ifthenelse{\isundefined{\@quote}}%
       {}%
