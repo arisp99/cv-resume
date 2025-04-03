@@ -661,7 +661,7 @@
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
 % Usage: \cvhonor{<position>}{<title>}{<date>}
 \newcommand*{\cvhonor}[3]{%
-  \honordatestyle{#3} & \honorpositionstyle{#1}, \honortitlestyle{#2} & {} \\
+  \honordatestyle{#3} & \honorpositionstyle{#1}\ifempty{#2}{}{,} \honortitlestyle{#2} & {} \\
   % \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
 }
 
