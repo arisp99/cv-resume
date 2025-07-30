@@ -173,7 +173,7 @@
 \newcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\scshape\color{black} #1}}
 \newcommand*{\sectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\bfseries\color{black}\@sectioncolor #1}}%16
 \newcommand*{\subsectionstyle}[1]{{\fontsize{10pt}{1em}\bodyfont\scshape\textcolor{black}{#1}}}%10
-\newcommand*{\paragraphstyle}{\fontsize{8pt}{1em}\bodyfontlight\upshape\color{black}} %9
+\newcommand*{\paragraphstyle}{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{black}} %9
 
 % For elements of entry
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{black} #1}}%10
@@ -497,6 +497,7 @@
   \vspace{-3mm}
   \subsectionstyle{#1}
   \phantomsection
+  % \noindent\color{black}\rule{0.2\textwidth}{0.9pt}
 }
 
 % Define a paragraph for CV
@@ -506,7 +507,7 @@
   \paragraphstyle
 }{%
   \par
-  \vspace{2mm}
+  % \vspace{2mm}
 }
 
 % Define an environment for cventry
