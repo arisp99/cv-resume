@@ -71,11 +71,52 @@
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
-\RequirePackage{fontawesome}
-% Needed to use the roboto font
-\RequirePackage{roboto}
-% Needed to use the sourcesanspro font
-\RequirePackage[default,opentype]{sourcesanspro}
+\RequirePackage{fontawesome7}
+% Fix for text layering as parsed by ATSs
+\defaultfontfeatures{
+  Renderer=HarfBuzz,
+}
+\IfFontExistsTF{Source Sans 3}{%
+  \setmainfont{Source Sans 3}[
+    RawFeature={+axis={wght=400}},
+    BoldFont={Source Sans 3},
+    BoldFeatures={RawFeature={+axis={wght=700}}},
+    ItalicFont={Source Sans 3 Italic},
+    ItalicFeatures={RawFeature={+axis={wght=400}}},
+    BoldItalicFont={Source Sans 3 Italic},
+    BoldItalicFeatures={RawFeature={+axis={wght=700}}},
+    FontFace={l}{n}{Font=Source Sans 3, RawFeature={+axis={wght=300}}},
+    FontFace={l}{it}{Font=Source Sans 3 Italic, RawFeature={+axis={wght=300}}},
+  ]
+  \setsansfont{Source Sans 3}[
+    RawFeature={+axis={wght=400}},
+    BoldFont={Source Sans 3},
+    BoldFeatures={RawFeature={+axis={wght=700}}},
+    ItalicFont={Source Sans 3 Italic},
+    ItalicFeatures={RawFeature={+axis={wght=400}}},
+    BoldItalicFont={Source Sans 3 Italic},
+    BoldItalicFeatures={RawFeature={+axis={wght=700}}},
+    FontFace={l}{n}{Font=Source Sans 3, RawFeature={+axis={wght=300}}},
+    FontFace={l}{it}{Font=Source Sans 3 Italic, RawFeature={+axis={wght=300}}},
+  ]
+}{%
+  \setmainfont{Source Sans Pro}[
+    FontFace={l}{n}{Font=*-Light},
+    FontFace={l}{it}{Font=*-LightItalic},
+  ]
+  \setsansfont{Source Sans Pro}[
+    FontFace={l}{n}{Font=*-Light},
+    FontFace={l}{it}{Font=*-LightItalic},
+  ]
+}
+\newfontfamily\roboto{Roboto}[
+  UprightFont=*,
+  ItalicFont=* Italic,
+  BoldFont=* Bold,
+  BoldItalicFont=* Bold Italic,
+  FontFace={l}{n}{Font=* Light},
+  FontFace={l}{it}{Font=* Light Italic},
+]
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
 % Needed to deal a paragraphs
@@ -153,11 +194,11 @@
 %-------------------------------------------------------------------------------
 %                Configuration for fonts
 %-------------------------------------------------------------------------------
-\newcommand*{\headerfont}{\roboto}
-\newcommand*{\headerfontlight}{\robotolight}
-\newcommand*{\footerfont}{\sourcesanspro}
-\newcommand*{\bodyfont}{\sourcesanspro}
-\newcommand*{\bodyfontlight}{\sourcesanspro}
+\newcommand*{\headerfont}{\roboto\selectfont}
+\newcommand*{\headerfontlight}{\roboto\fontseries{l}\selectfont}
+\newcommand*{\footerfont}{\sffamily}
+\newcommand*{\bodyfont}{\sffamily}
+\newcommand*{\bodyfontlight}{\sffamily\fontseries{l}\selectfont}
 
 %-------------------------------------------------------------------------------
 %                Configuration for styles
@@ -280,11 +321,11 @@
 
 % Defines writer's homepage (optional)
 % Usage: \homepage{<url>}
-\newcommand*{\homepage}[1]{\headersocial{\faHome}{https://}{#1}}
+\newcommand*{\homepage}[1]{\headersocial{\faHouseChimney}{https://}{#1}}
 
 % Defines writer's linked-in (optional)
 % Usage: \linkedin{<linked-in-nick>}
-\newcommand*{\linkedin}[1]{\headersocial{\faLinkedinSquare}{https://www.linkedin.com/in/}{#1}}
+\newcommand*{\linkedin}[1]{\headersocial{\faLinkedin}{https://www.linkedin.com/in/}{#1}}
 
 % Defines writer's github (optional)
 % Usage: \github{<github-nick>}

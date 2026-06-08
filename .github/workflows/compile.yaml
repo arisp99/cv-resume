@@ -24,6 +24,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install fonts
+        run: |
+          apt update
+          apt install --yes \
+            fonts-roboto \
+            fonts-adobe-sourcesans3 \
+            ;
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:

@@ -33,8 +33,9 @@ clean, semantic markup.
 that a lot of people use these days, especially the math and computer science
 people in academia.
 
-[**LaTeX FontAwesome**](https://github.com/furl/latex-fontawesome) provides
-bindings for FontAwesome icons to be used in LaTeX.
+[**FontAwesome7 LaTeX Package**](https://github.com/braniii/fontawesome) is a
+LaTeX package that provides access to the [Font Awesome
+7](https://fontawesome.com/v7/icons) icon set.
 
 [**Roboto**](https://github.com/google/roboto) is the default font on Android
 and ChromeOS, and the recommended font for Google’s visual language, Material
