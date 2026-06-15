@@ -108,8 +108,6 @@
   pdfsubject={},
   pdfkeywords={}
 }
-% For additional icons (including orcid)
-\RequirePackage{academicons}
 % Require additional space to be filled by content
 \RequirePackage{needspace}
 
@@ -285,7 +283,7 @@
 
 % Defines writer's orcid (optional)
 % Usage: \orcid{<orcid name>}
-\newcommand*{\orcid}[1]{\headersocial{\aiOrcid}{https://orcid.org/}{#1}}
+\newcommand*{\orcid}[1]{\headersocial{\faOrcid}{https://orcid.org/}{#1}}
 
 % Defines writer's extra informations (optional)
 % Usage: \extrainfo{<extra informations>}
