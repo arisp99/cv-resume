@@ -7,19 +7,26 @@ résumé.
 
 A full TeX distribution is assumed. [Various
 distributions](http://tex.stackexchange.com/q/55437) for different operating
-systems (Windows, Mac, \*nix) are available but TeX Live is recommended.
+systems (Windows, Mac, \*nix) are available but TeX Live is recommended. The
+build also requires `latexmk`, Biber, Source Sans 3, and Roboto.
 
 ### Usage
 
-There are two main `.tex` files that can be compiled. To do so, run the
-following at the command prompt. Note that we use the `LuaTeX` TeX engine.
+There are two main `.tex` files. Build both with `make`; the Makefile uses
+`latexmk` to run LuaLaTeX and Biber as many times as needed.
 
 ```bash
-$ lualatex cv.tex
-$ lualatex resume.tex
+make
 ```
 
-This will result in the creation of `cv.pdf` and `resume.pdf`.
+This creates `cv.pdf` and `resume.pdf`. You can also build or clean individual
+targets:
+
+```bash
+make cv
+make resume
+make clean
+```
 
 ## Credits
 
@@ -41,6 +48,6 @@ LaTeX package that provides access to the [Font Awesome
 and ChromeOS, and the recommended font for Google’s visual language, Material
 Design.
 
-[**Source Sans Pro**](https://github.com/adobe-fonts/source-sans-pro) is a set
+[**Source Sans 3**](https://github.com/adobe-fonts/source-sans) is a set
 of OpenType fonts that have been designed to work well in user interface (UI)
 environments.

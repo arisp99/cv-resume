@@ -6,7 +6,7 @@ RESUME_DIR = resume
 CV_DIR = cv
 RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
 CV_SRCS = $(shell find $(CV_DIR) -name '*.tex')
-COMMON_SRCS = awesome-cv.cls publications.bib
+COMMON_SRCS = awesome-cv.cls awesome-cv.bbx publications.bib
 
 all: cv resume
 
