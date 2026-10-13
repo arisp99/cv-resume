@@ -1,0 +1,124 @@
+\ProvidesFile{awesome-cv.bbx}
+
+\RequireBibliographyStyle{verbose}
+
+% Shared field formatting.
+\DeclareFieldFormat[article,inproceedings,misc]{title}{#1\par}
+\DeclareFieldFormat[article,inproceedings]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article,inproceedings]{pages}{#1}
+\DeclareFieldFormat{doi}{%
+  doi\addcolon\space
+  \ifhyperref
+    {\lowercase{\href{https://doi.org/#1}{\nolinkurl{#1}}}}
+    {\lowercase{\nolinkurl{#1}}}%
+}
+\renewcommand*{\bibpagespunct}{\addcolon}
+\DeclareDelimFormat{finalnamedelim}{\addcomma\space}
+\DeclareFieldFormat{pubstate}{\MakeCapital{#1}.}
+
+% Journal articles.
+\DeclareBibliographyDriver{article}{%
+  \entrytitlestyle{\printfield{title}}%
+  \newblock
+  \entrypositionstyle{\printnames{author}}%
+  \par
+  \newblock
+  \descriptionstyle{%
+    \usebibmacro{journal}%
+    \newunitpunct
+    \printfield{year}%
+    \setunit{\addsemicolon}%
+    \printfield{volume}%
+    \printfield{number}%
+    \setunit{\bibpagespunct}%
+    \printfield{pages}%
+    \setunit{\adddot\addspace}%
+    \printfield{doi}%
+    \finentrypunct
+    \printfield{pubstate}%
+  }%
+  \par\vspace{0.1\baselineskip}
+}
+
+% Published conference proceedings.
+\DeclareBibliographyDriver{inproceedings}{%
+  \entrytitlestyle{\printfield{title}}%
+  \newblock
+  \entrypositionstyle{\printnames{author}}%
+  \par
+  \newblock
+  \descriptionstyle{%
+    \printfield{booktitle}%
+    \newunitpunct
+    \printfield{year}%
+    \setunit{\addsemicolon}%
+    \printfield{volume}%
+    \printfield{number}%
+    \setunit{\bibpagespunct}%
+    \printfield{pages}%
+    \setunit{\adddot\addspace}%
+    \printfield{doi}%
+    \finentrypunct
+  }%
+  \par\vspace{0.1\baselineskip}
+}
+
+% Posters and podium presentations.
+\DeclareBibliographyDriver{misc}{%
+  \entrytitlestyle{\printfield{title}}%
+  \newblock
+  \entrypositionstyle{\printnames{author}}%
+  \par
+  \newblock
+  \descriptionstyle{%
+    \printfield{note}%
+    \printfield{eventtitle}%
+    \setunit{\addsemicolon\space}%
+    \usebibmacro{date}%
+    \setunit{\addsemicolon\space}%
+    \printfield{location}%
+    \printfield{venue}%
+    \finentrypunct
+  }%
+  \par\vspace{0.1\baselineskip}
+}
+
+% Display family names followed by given-name initials.
+\DeclareNameFormat{author}{%
+  \renewcommand*{\multinamedelim}{\addcomma\addspace}%
+  \nameparts{#1}%
+  \usebibmacro{name:family-given}
+    {\namepartfamily\nopunct}
+    {\namepartgiveni}
+    {\namepartprefix}
+    {\namepartsuffix}%
+  \usebibmacro{name:andothers}%
+}
+
+% Sort by descending year and month, then by name and title.
+\DeclareSortingTemplate{ymdnt}{%
+  \sort{\field{presort}}
+  \sort[final]{\field{sortkey}}
+  \sort[direction=descending]{%
+    \field{sortyear}%
+    \field{year}%
+    \literal{9999}%
+  }
+  \sort[direction=descending]{%
+    \field[padside=left,padwidth=2,padchar=0]{month}%
+    \literal{99}%
+  }
+  \sort{%
+    \field{sortname}%
+    \field{author}%
+    \field{editor}%
+    \field{translator}%
+    \field{sorttitle}%
+    \field{title}%
+  }
+  \sort{\field{sorttitle}}
+}
+
+\ExecuteBibliographyOptions{sorting=ymdnt}
+
+\endinput
