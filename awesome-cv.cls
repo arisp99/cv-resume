@@ -17,13 +17,13 @@
 % LPPL v1.3c (http://www.latex-project.org/lppl)
 
 %-------------------------------------------------------------------------------
-%                Identification
+%                Metadata
 %-------------------------------------------------------------------------------
-\ProvidesClass{awesome-cv}[Awesome Curriculum Vitae Class]
+\ProvidesClass{awesome-cv}
 \NeedsTeXFormat{LaTeX2e}
 
 %-------------------------------------------------------------------------------
-%                Class options
+%                Options
 %
 % (need to be done before the external package loading, for example because
 % we need \paperwidth, \paperheight and \@ptsize to be defined before loading
@@ -40,7 +40,7 @@
 \LoadClass{article}
 
 %-------------------------------------------------------------------------------
-%                3rd party packages
+%                Dependencies and fonts
 %-------------------------------------------------------------------------------
 % Needed to make fixed length table
 \RequirePackage{array}
@@ -54,23 +54,18 @@
 \RequirePackage{fancyhdr}
 % Needed to manage colors
 \RequirePackage{xcolor}
-% Needed to use \ifxetex-\else-\fi statement
-\RequirePackage{ifxetex}
 % Needed to use \if-\then-\else statement
 \RequirePackage{xifthen}
-% Needed to strip chars from telephone number
-\RequirePackage{xstring}
 % Needed to use a toolbox of programming tools
 \RequirePackage{etoolbox}
 % Needed to manage fonts
 \RequirePackage[quiet]{fontspec}
 % To support LaTeX quoting style
 \defaultfontfeatures{Ligatures=TeX}
-% Needed to manage math fonts
+% Needed for consistent Unicode math glyphs
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
 \RequirePackage{fontawesome7}
-\RequirePackage{accsupp}
 \defaultfontfeatures{
   Renderer=HarfBuzz,
 }
@@ -98,9 +93,9 @@
   FontFace={l}{n}{Font=* Light},
   FontFace={l}{it}{Font=* Light Italic},
 ]
-% Needed to deal a paragraphs
+% Needed to configure paragraph spacing
 \RequirePackage{parskip}
-% Needed to deal hyperlink
+% Needed to create hyperlinks
 \RequirePackage[hidelinks,unicode]{hyperref}
 \hypersetup{%
   pdftitle={},
@@ -112,13 +107,11 @@
 \RequirePackage{needspace}
 
 %-------------------------------------------------------------------------------
-%                Configuration for layout
+%                Layout
 %-------------------------------------------------------------------------------
-%% Page Layout
 % Configure page margins with geometry
 \geometry{left=1cm, top=.5cm, right=1cm, bottom=1cm, footskip=0.2cm}
 
-%% Header & Footer
 % Set offset to each header and footer
 \fancyhfoffset{0em}
 % Remove head rule
@@ -129,7 +122,7 @@
 \pagestyle{fancy}
 
 %-------------------------------------------------------------------------------
-%                Configuration for fonts
+%                Font helpers
 %-------------------------------------------------------------------------------
 \newcommand*{\headerfont}{\roboto\selectfont}
 \newcommand*{\headerfontlight}{\roboto\fontseries{l}\selectfont}
@@ -138,19 +131,18 @@
 \newcommand*{\bodyfontlight}{\sffamily\fontseries{l}\selectfont}
 
 %-------------------------------------------------------------------------------
-%                Configuration for styles
+%                Styles
 %-------------------------------------------------------------------------------
 % Configure styles for each CV elements
 % For fundamental structures
-\newcommand*{\headerfirstnamestyle}[1]{{\fontsize{20pt}{1em}\headerfontlight\color{black} #1}} %32pt
-\newcommand*{\headerlastnamestyle}[1]{{\fontsize{20pt}{1em}\headerfont\bfseries\color{black} #1}} %32pt
-\newcommand*{\headerpositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{black} #1}}%7.6
-\newcommand*{\headeraddressstyle}[1]{{\fontsize{7pt}{1em}\headerfont\itshape\color{black} #1}} %8
+\newcommand*{\headerfirstnamestyle}[1]{{\fontsize{20pt}{1em}\headerfontlight\color{black} #1}}
+\newcommand*{\headerlastnamestyle}[1]{{\fontsize{20pt}{1em}\headerfont\bfseries\color{black} #1}}
+\newcommand*{\headerpositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{black} #1}}
+\newcommand*{\headeraddressstyle}[1]{{\fontsize{7pt}{1em}\headerfont\itshape\color{black} #1}}
 \newcommand*{\headersocialstyle}[1]{{\fontsize{6.8pt}{1em}\headerfont\color{black} #1}}
-\newcommand*{\headerquotestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{black} #1}}
 \newcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\scshape\color{black} #1}}
-\newcommand*{\sectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\bfseries\color{black} #1}}%16
-\newcommand*{\subsectionstyle}[1]{{\fontsize{10pt}{1em}\bodyfont\scshape\textcolor{black}{#1}}}%10
+\newcommand*{\sectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\bfseries\color{black} #1}}
+\newcommand*{\subsectionstyle}[1]{{\fontsize{10pt}{1em}\bodyfont\scshape\textcolor{black}{#1}}}
 \newcommand*{\paragraphstyle}{\fontsize{9pt}{1em}\bodyfont\upshape\color{black}}
 
 % For elements of entry
@@ -158,13 +150,6 @@
 \newcommand*{\entrypositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\scshape\color{black} #1}}
 \newcommand*{\entrymetadatastyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{black} #1}}
 \newcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\upshape\color{black} #1}}
-
-% For elements of subentry
-\newcommand*{\subentrytitlestyle}[1]{{\fontsize{8pt}{1em}\bodyfont\mdseries\color{black} #1}}
-\newcommand*{\subentrypositionstyle}[1]{{\fontsize{7pt}{1em}\bodyfont\scshape\color{black} #1}}
-\newcommand*{\subentrydatestyle}[1]{{\fontsize{7pt}{1em}\bodyfont\slshape\color{black} #1}}
-\newcommand*{\subentrylocationstyle}[1]{{\fontsize{7pt}{1em}\bodyfont\slshape\color{black} #1}}
-\newcommand*{\subdescriptionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\upshape\color{black} #1}}
 
 % For elements of honor
 \newcommand*{\honortitlestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\upshape\color{black} #1}}
@@ -177,7 +162,7 @@
 \newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\color{black} #1}}
 
 %-------------------------------------------------------------------------------
-%                Commands for personal information
+%                Personal information
 %-------------------------------------------------------------------------------
 % Define a collection of header information
 \edef\header{}
@@ -194,14 +179,7 @@
 
 % Define writer's name
 % Usage: \name{<firstname>}{<lastname>}
-% Usage: \firstname{<firstname>}
-% Usage: \lastname{<lastname>}
-% Usage: \familyname{<familyname>}
 \newcommand*{\name}[2]{\def\@firstname{#1}\def\@lastname{#2}}
-\newcommand*{\firstname}[1]{\def\@firstname{#1}}
-\newcommand*{\lastname}[1]{\def\@lastname{#1}}
-\newcommand*{\familyname}[1]{\def\@lastname{#1}}
-\def\@familyname{\@lastname}
 
 % Define writer's address
 % Usage: \address{<address>}
@@ -210,19 +188,6 @@
 % Define writer's position
 % Usage: \position{<position>}
 \newcommand*{\position}[1]{\def\@position{#1}}
-
-% Defines writer's mobile (optional)
-% Usage: \mobile{<mobile number>}
-\newcommand*{\mobile}[1]{%
-  \def\@mobile{#1}
-  \def\@teluri{tel:\@mobile}
-  % Strip unwanted characters
-  \StrDel{\@teluri}{ }[\@teluri]%
-  \StrDel{\@teluri}{-}[\@teluri]%
-  \StrDel{\@teluri}{(}[\@teluri]%
-  \StrDel{\@teluri}{)}[\@teluri]%
-  \headeradd{\href{\@teluri}{\faMobile\acvHeaderIconSep\@mobile}}%
-}
 
 % Defines writer's email (optional)
 % Usage: \email{<email address>}
@@ -240,38 +205,11 @@
 % Usage: \github{<github-nick>}
 \newcommand*{\github}[1]{\headersocial{\faGithub}{https://github.com/}{#1}}
 
-% Defines writer's gitlab (optional)
-% Usage: \gitlab{<gitlab-nick>}
-\newcommand*{\gitlab}[1]{\headersocial{\faGitlab}{https://gitlab.com/}{#1}}
-
-% Defines writer's stackoverflow profile (optional)
-% Usage: \stackoverflow{<so userid>}{<so username>}
-%   e.g.https://stackoverflow.com/users/123456/sam-smith
-%       would be \stackoverflow{123456}{sam-smith}
-\newcommand*{\stackoverflow}[2]{\headeradd{\href{https://stackoverflow.com/users/#1}{\faStackOverflow\acvHeaderIconSep#2}}}
-
-% Defines writer's twitter (optional)
-% Usage: \twitter{<twitter handle>}
-\newcommand*{\twitter}[1]{\headerSocial{\faTwitter}{https://twitter.com/}{#1}}
-
-% Defines writer's skype (optional)
-% Usage: \skype{<skype account>}
-\newcommand*{\skype}[1]{\headeradd{\faSkype\acvHeaderIconSep#1}}
-
-% Defines writer's reddit (optional)
-% Usage: \reddit{<reddit account>}
-\newcommand*{\reddit}[1]{\headersocial{\faReddit}{https://www.reddit.com/user/}{#1}}
-
-% Defines writer's medium profile (optional)
-% Usage: \medium{<medium account>}
-\newcommand*{\medium}[1]{\headersocial{\faMedium}{https://medium.com/@}{#1}}
-
 % Defines writer's google scholar profile (optional)
 % Usage: \googlescholar{<googlescholar userid>}{<googlescholar username>}
 % e.g.https://scholar.google.co.uk/citations?user=wpZDx1cAAAAJ
 % would be \googlescholar{wpZDx1cAAAAJ}{Name-to-display-next-icon}
-% If 'googlescholar-name' is not provided than it defaults to
-% '\firstname \lastname'
+% If no display name is provided, default to the configured full name.
 \newcommand*{\googlescholar}[2]{%
   \ifthenelse{\equal{#2}{}}{%
     \def\@googlescholarname{\@firstname~\@lastname}%
@@ -285,18 +223,9 @@
 % Usage: \orcid{<orcid name>}
 \newcommand*{\orcid}[1]{\headersocial{\faOrcid}{https://orcid.org/}{#1}}
 
-% Defines writer's extra informations (optional)
-% Usage: \extrainfo{<extra informations>}
-\newcommand*{\extrainfo}[1]{\headeradd{#1}}
-
-% Defines writer's quote (optional)
-% Usage: \quote{<quote>}
-\renewcommand*{\quote}[1]{\def\@quote{#1}}
-
 %-------------------------------------------------------------------------------
-%                Commands for extra
+%                Customizable spacing
 %-------------------------------------------------------------------------------
-%% Define helper macros a user can change easily
 % Header
 \newcommand{\acvHeaderNameDelim}{\space}
 \newcommand{\acvHeaderAfterNameSkip}{.4mm}
@@ -305,14 +234,13 @@
 \newcommand{\acvHeaderIconSep}{\space}
 \newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
 \newcommand{\acvHeaderAfterSocialSkip}{6mm}
-\newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{0mm} %3 mm
-\newcommand{\acvSectionContentTopSkip}{2.5mm} %2.5 mm
+\newcommand{\acvSectionTopSkip}{0mm}
+\newcommand{\acvSectionContentTopSkip}{2.5mm}
 
 %-------------------------------------------------------------------------------
-%                Commands for utilities
+%                Utilities
 %-------------------------------------------------------------------------------
 % Use to align an element of tabular table
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -335,7 +263,7 @@
 }
 
 %-------------------------------------------------------------------------------
-%                Commands for elements of CV structure
+%                Document components
 %-------------------------------------------------------------------------------
 % Define a header for CV
 % Usage: \makecvheader
@@ -349,9 +277,6 @@
     \headersocialstyle{%
       \header{}
     } \\[\acvHeaderAfterSocialSkip]%
-    \ifthenelse{\isundefined{\@quote}}%
-    {}%
-    {\headerquotestyle{\@quote\\}\vspace{\acvHeaderAfterQuoteSkip}}%
   \end{minipage}%
 }
 
@@ -436,31 +361,6 @@
     \entrytitlestyle{#1} & \entrymetadatastyle{#2} \\
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#3}}
   \end{tabular*}%
-}
-
-% Define an environment for cvsubentry
-\newenvironment{cvsubentries}{%
-  \begin{center}
-  }{%
-  \end{center}
-}
-% Define a subentry of cv information
-% Usage: \cvsubentry{<position>}{<title>}{<date>}{<description>}
-\newcommand*{\cvsubentry}[4]{%
-  \vspace{-2mm}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \setlength\leftskip{0.2cm}
-    \subentrytitlestyle{#2} & \ifthenelse{\equal{#1}{}}
-    {\subentrydatestyle{#3}}{}
-    \ifthenelse{\equal{#1}{}}
-    {}
-    {\subentrypositionstyle{#1} & \subentrydatestyle{#3} \\}
-    \ifthenelse{\equal{#4}{}}
-    {}
-    {\multicolumn{2}{L{17.0cm}}{\subdescriptionstyle{#4}} \\}
-  \end{tabular*}
 }
 
 % Define an environment for cvhonor
