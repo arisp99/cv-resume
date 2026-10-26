@@ -84,6 +84,7 @@
 }
 
 % Display family names followed by given-name initials.
+\renewrobustcmd*{\bibinithyphendelim}{\adddot\addnbspace}
 \DeclareNameFormat{author}{%
   \renewcommand*{\multinamedelim}{\addcomma\addspace}%
   \nameparts{#1}%
